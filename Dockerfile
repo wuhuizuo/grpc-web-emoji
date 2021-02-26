@@ -3,7 +3,7 @@ WORKDIR /server
 COPY ./ .
 RUN go build -o emoji-service
 
-FROM alpine:3.13.2
+FROM golang:1
 WORKDIR /app
 
 COPY --from=builder /server/emoji-service ./
