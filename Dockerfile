@@ -3,10 +3,11 @@ WORKDIR /server
 COPY ./ .
 RUN go build -o emoji-service
 
-FROM scratch
-WORKDIR /bin/
-COPY --from=builder /server/emoji-service /bin/emoji-service
-ENTRYPOINT [ "/bin/emoji-service" ]
+FROM alpine:3.13.2
+WORKDIR /app
+
+COPY --from=builder /server/emoji-service ./
+ENTRYPOINT [ "./emoji-service" ]
 CMD [ "9000" ]
 
 EXPOSE 9000
